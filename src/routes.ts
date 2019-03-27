@@ -1,8 +1,23 @@
+import Domain from './domain/domain';
 class Routes {
-  constructor() {}
+  private domain: Domain;
 
-  async helloWelt(req, res, next): Promise<void> {
+  constructor(domain: Domain) {
+    this.domain = domain;
+  }
+
+  helloWelt = async (req, res, next) => {
     res.send('👋🏽🌎');
+  }
+
+  // the reason why i added the functions in this way, was in order to have the correct
+  // 'this' context. https://blog.johnnyreilly.com/2014/04/typescript-instance-methods.html
+  getUserById = async (req, res, next) => {
+    const { id } = req.params;
+
+    const useCase = this.domain.getUseCase(Domain.UseCaseNames.getUserByIdUseCase);
+    const result = await useCase.execute(id);
+    res.send(result);
   }
 
   errorHandler(error, req, res, next): void {
