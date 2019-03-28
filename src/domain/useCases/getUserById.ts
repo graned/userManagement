@@ -1,11 +1,21 @@
 import IUseCase from './IUseCase';
+import UserInteractor from 'domain/interactors/userInteractor';
 
 class GetUser implements IUseCase {
-  constructor(/* interactor definitions */) {
+  private userInteractor: UserInteractor;
+  
+  constructor(userInteractor: UserInteractor) {
+    this.userInteractor = userInteractor;
   }
 
-  async execute(id: number): Promise<any>{
-    return Promise.resolve({ name: 'John', lastName: 'Rambo' });
+  execute = async (id: number) => {
+    try {
+      const userInstance = await this.userInteractor.findUserById(id);
+      return userInstance;
+    } catch (error) {
+      // log error here
+      throw error;
+    }
   }
 }
 
