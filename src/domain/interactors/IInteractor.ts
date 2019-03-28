@@ -1,5 +1,5 @@
 interface IInteractor<T> {
-    createInstance(data: object): T;
+    createInstance(data: any): T;
   }
   
 export default IInteractor;

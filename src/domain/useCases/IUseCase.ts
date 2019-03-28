@@ -1,6 +1,8 @@
+// import User from "domain/entities/user";
+
 interface IUseCase {
   execute(id: number): Promise<any>;
-  // execute(): Promise<User>;
+  //execute(id: number): Promise<User>;
 }
 
 export default IUseCase;

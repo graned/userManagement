@@ -1,14 +1,16 @@
 import IInteractor from "./IInteractor";
+import User from "domain/entities/user";
 
-class UserInteractor implements IInteractor<any>{
+class UserInteractor implements IInteractor<User>{
     constructor() {}
-    
-    createInstance = (data: object) => {
 
+    createInstance = (data: any) => {
+        return User.create(data);
     }
 
     findUserById = async (id: number) => {
-        return { name: 'John', lastName: 'Rambo' };
+        // call store to fetch raw data from DB
+        return this.createInstance({ name: 'John', lastName: 'Rambo' });
     }
 }
 
