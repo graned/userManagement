@@ -4,16 +4,17 @@ class User implements IEntity {
     id: number;
     name: string;
     lastName: string;
+    password: string;
 
-    private constructor(id: number, name: string, lastName: string) {
-        this.id = id || null;
-        this.name = name || null;
-        this.lastName = lastName || null;
+    private constructor(data:any) {
+        this.id = data.id || null;
+        this.name = data.name || null;
+        this.lastName = data.lastName || null;
+        this.password = data.password || null;
     }
 
     static create(data: any): User {
-        const { id, name,  lastName } = data;
-        return new User(id, name,  lastName);
+        return new User(data);
     }
 }
 
