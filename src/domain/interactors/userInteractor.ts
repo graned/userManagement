@@ -1,12 +1,15 @@
 import IInteractor from "./IInteractor";
 import User from "domain/entities/user";
 import { EntityFactory, EntityType } from "../entities";
+import UserStore from "../stores/userStore";
 
 class UserInteractor implements IInteractor<User>{
     private entityFactory: EntityFactory;
+    private userStore: UserStore;
     
-    constructor(entityFactory: EntityFactory) {
+    constructor(entityFactory: EntityFactory, userStore: UserStore) {
         this.entityFactory = entityFactory;
+        this.userStore = userStore;
     }
 
     createInstance(data: any): User {
@@ -14,8 +17,8 @@ class UserInteractor implements IInteractor<User>{
     }
 
     findUserById = async (id: number) => {
-        // call store to fetch raw data from DB
-        return this.createInstance({ id: 1, name: 'John', lastName: 'Rambo' });
+        const rawUserData = await this.userStore.findById(id);
+        return this.createInstance(rawUserData);
     }
 }
 

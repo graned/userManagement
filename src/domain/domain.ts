@@ -2,6 +2,7 @@ import IUseCase from './useCases/IUseCase';
 import GetUserById from './useCases/getUserById';
 import UserInteractor from './interactors/userInteractor';
 import { EntityFactory } from './entities';
+import UserStore from './stores/userStore';
 
 enum UseCaseNames{
   getUserByIdUseCase
@@ -17,7 +18,8 @@ class Domain {
 
   private init(): void {
     const entityFactory = new EntityFactory();
-    const userInteractor = new UserInteractor(entityFactory);
+    const userStore = new UserStore();
+    const userInteractor = new UserInteractor(entityFactory, userStore);
     const getUserByIdUseCase = new GetUserById(userInteractor);
     this.useCases.set(UseCaseNames.getUserByIdUseCase, getUserByIdUseCase);
   }
