@@ -1,5 +1,4 @@
 import IStore from "./IStore";
-import { finished } from "stream";
 
 class UserStore implements IStore {
     // private storeManager: StoreManager;
