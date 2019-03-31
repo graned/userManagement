@@ -1,6 +1,7 @@
 import IUseCase from './useCases/IUseCase';
 import GetUserById from './useCases/getUserById';
 import UserInteractor from './interactors/userInteractor';
+import { EntityFactory } from './entities';
 
 enum UseCaseNames{
   getUserByIdUseCase
@@ -15,7 +16,8 @@ class Domain {
   }
 
   private init(): void {
-    const userInteractor = new UserInteractor();
+    const entityFactory = new EntityFactory();
+    const userInteractor = new UserInteractor(entityFactory);
     const getUserByIdUseCase = new GetUserById(userInteractor);
     this.useCases.set(UseCaseNames.getUserByIdUseCase, getUserByIdUseCase);
   }

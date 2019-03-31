@@ -6,9 +6,9 @@ class User implements IEntity {
     lastName: string;
 
     private constructor(id: number, name: string, lastName: string) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
+        this.id = id || null;
+        this.name = name || null;
+        this.lastName = lastName || null;
     }
 
     static create(data: any): User {
