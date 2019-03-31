@@ -15,8 +15,8 @@ class Routes {
   getUserById = async (req, res, next) => {
     const { id } = req.params;
 
-    const useCase = this.domain.getUseCase(Domain.UseCaseNames.getUserByIdUseCase);
-    const result = await useCase.execute(id);
+    const getUserByIdUseCase = this.domain.getUseCase(Domain.UseCaseNames.getUserByIdUseCase);
+    const result = await getUserByIdUseCase.execute(id);
     res.send(result);
   }
 
