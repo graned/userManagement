@@ -18,7 +18,7 @@ class UserInteractor implements IInteractor<User>{
 
     findUserById = async (id: number) => {
         const rawUserData = await this.userStore.findById(id);
-        return this.createInstance(rawUserData);
+        return rawUserData == null ? {} : this.createInstance(rawUserData);
     }
 }
 
