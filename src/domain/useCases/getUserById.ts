@@ -1,5 +1,5 @@
 import IUseCase from './IUseCase';
-import UserInteractor from 'domain/interactors/userInteractor';
+import UserInteractor from '../interactors/userInteractor';
 
 class GetUser implements IUseCase {
   private userInteractor: UserInteractor;
