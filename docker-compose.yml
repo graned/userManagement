@@ -1,0 +1,20 @@
+version: "2"
+services:
+#  userManagement:
+#    build: .
+#    ports:
+#      - 3000:3000
+#    environment:
+#      PROFILE: develop
+#    depends_on:
+#      - "postgres"
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=dbuser"
+      - "POSTGRES_DB=user"
+      - "POSTGRES_PASSWORD=password"
+  
