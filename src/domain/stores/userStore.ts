@@ -1,10 +1,8 @@
-import IStore from "./IStore";
-
-class UserStore implements IStore {
-    // private storeManager: StoreManager;
+class UserStore {
+    private storeManager: DataManager;
     
-    constructor(/*storeManager*/) {
-        // this.storeManager = storeManager;
+    constructor(storeManager) {
+        this.storeManager = storeManager;
     }
 
     findById = async (id: number) => {
@@ -13,7 +11,10 @@ class UserStore implements IStore {
     }
 
     find = async (condition: any) => {
-        return { id: 1, name: 'John', lastName: 'Rambo' };
+        const foundData = await this.storeManager.find(condition);
+        return foundData || null;
+        
+        // return { id: 1, name: 'John', lastName: 'Rambo' };
     }
 }
 
