@@ -6,10 +6,10 @@
       "sourceMap": true,
       "target": "es6",
       "outDir": "./dist",
-      "baseUrl": "./src"
+      "baseUrl": "./"
   },
   "include": [
-      "src/**/*.ts"
+      "src/**/*.ts", "server/routes.ts", "server/app.ts", "server/index.ts"
   ],
   "exclude": [
       "node_modules"

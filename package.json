@@ -4,8 +4,8 @@
   "description": "Simple project to play with typescript and clean architecture",
   "main": "index.ts",
   "scripts": {
-    "dev": "ts-node ./src/server.ts",
-    "start": "tsc && node ./dist/server.js"
+    "dev": "ts-node ./server",
+    "start": "tsc && node ./dist/server"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,9 @@
     "express": "^4.16.4",
     "knex": "^0.16.3",
     "pg": "^7.9.0"
+  },
+  "devDependencies": {
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.3"
   }
 }
