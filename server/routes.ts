@@ -1,9 +1,12 @@
-import Domain from './domain/domain';
-class Routes {
-  private domain: Domain;
+import Domain from '../src';
+import { UserControllers } from '../src/presentation/controllers/UserControllers';
 
-  constructor(domain: Domain) {
-    this.domain = domain;
+class Routes {
+  private readonly domainControllers = new Map();
+
+  constructor(private readonly domain: Domain) {
+    const domainUseCases = domain.initDomain();
+    this.domainControllers = domain.initControllers(domainUseCases);
   }
 
   helloWelt = async (req, res, next) => {
@@ -13,10 +16,8 @@ class Routes {
   // the reason why i added the functions in this way, was in order to have the correct
   // 'this' context. https://blog.johnnyreilly.com/2014/04/typescript-instance-methods.html
   getUserById = async (req, res, next) => {
-    const { id } = req.params;
-
-    const getUserByIdUseCase = this.domain.getUseCase(Domain.UseCaseNames.getUserByIdUseCase);
-    const result = await getUserByIdUseCase.execute(id);
+    const userControllers: UserControllers = this.domainControllers.get(Domain.Controllers.user);
+    const result = await userControllers.getUserById(req);
     res.send(result);
   }
 

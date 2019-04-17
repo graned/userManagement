@@ -1,6 +1,6 @@
 import Routes from './routes';
 import App from './app';
-import Domain from './domain/domain';
+import Domain from '../src';
 
 const domain = new Domain();
 const routes = new Routes(domain);
