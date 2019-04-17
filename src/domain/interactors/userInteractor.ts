@@ -1,24 +1,24 @@
-import IInteractor from "./IInteractor";
-import User from "domain/entities/user";
-import { EntityFactory, EntityType } from "../entities";
-import UserStore from "../stores/userStore";
+import IInteractor from './IInteractor';
+import UserEntity from '../entities/UserEntity';
+import { IUserInBoundary } from '../boundries/IUserInBoundary';
+import { IUserGateway } from '../entities/gateways/IUserGateway';
 
-class UserInteractor implements IInteractor<User>{
-    private entityFactory: EntityFactory;
-    private userStore: UserStore;
-    
-    constructor(entityFactory: EntityFactory, userStore: UserStore) {
-        this.entityFactory = entityFactory;
-        this.userStore = userStore;
+class UserInteractor implements IInteractor<UserEntity>, IUserInBoundary{
+    constructor(private readonly userGateway: IUserGateway) {
     }
 
-    createInstance(data: any): User {
-        return this.entityFactory.createEntity(EntityType.User, data);
+    createInstance(data: any): UserEntity {
+        return UserEntity.create(data);
     }
 
-    findUserById = async (id: number) => {
-        const rawUserData = await this.userStore.findById(id);
-        return rawUserData == null ? {} : this.createInstance(rawUserData);
+    async getUserById(id: number): Promise<UserEntity> {
+        const userEntity: UserEntity = await this.userGateway.fetchUserById(id);
+        
+        if (userEntity == null) {
+            throw new Error('User not found');
+        }
+
+        return userEntity;
     }
 }
 
