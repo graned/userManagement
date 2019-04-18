@@ -1,12 +1,11 @@
 import { IUserInBoundary } from '../../domain/boundries/IUserInBoundary';
-import { IControllers } from './IControllers';
 import { UserRequestModel } from '../../domain/models/UserRequestModel';
 
 /*
 This bad boy is in charge of taking the requests from the server.
 This files have a dependency to a request model and to a boundry interface
 */ 
-export class UserControllers implements IControllers {
+export class UserControllers {
     constructor(
         private readonly userUseCases: IUserInBoundary,
     ) {}
