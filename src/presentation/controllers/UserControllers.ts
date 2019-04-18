@@ -1,5 +1,6 @@
 import { IUserInBoundary } from '../../domain/boundries/IUserInBoundary';
 import { IControllers } from './IControllers';
+import { IUserRequestModel } from '../../domain/models/IUserRequestModel';
 
 /*
 This bad boy is in charge of taking the requests from the server.
@@ -13,8 +14,11 @@ export class UserControllers implements IControllers {
 
     // the reason why i added the functions in this way, was in order to have the correct
     // 'this' context. https://blog.johnnyreilly.com/2014/04/typescript-instance-methods.html
-    getUserById = async (request) => {
-        // use request model to validate
+    getUserByIdHandler = async (requestData: IUserRequestModel) => {
+        // use request model to destructure the request if required
+        const request = {
+            id: requestData.id,
+        };
         
         const { id } = request.params;
         const user = await this.userUseCases.getUserById(id);
