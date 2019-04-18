@@ -9,9 +9,10 @@ export class UserEntityGateway implements IUserGateway {
     async fetchUserById(id: number): Promise<UserEntity> {
         // HERE WE DO SOME DB PROCESS
         const rawData = {
-            id: 1,
-            name: 'John',
+            id,
+            firstName: 'John',
             lastName: 'Rambo',
+            email: 'real_rambo42@yomama.com',
             password: 'therealrambo123',
         };
 

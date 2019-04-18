@@ -2,14 +2,16 @@ import IEntity from './IEntity';
 
 class UserEntity implements IEntity {
     id: number;
-    name: string;
+    firstName: string;
     lastName: string;
+    email: string;
     password: string;
 
     private constructor(data:any) {
         this.id = data.id || null;
-        this.name = data.name || null;
+        this.firstName = data.firstName || null;
         this.lastName = data.lastName || null;
+        this.email = data.email || null;
         this.password = data.password || null;
     }
 
