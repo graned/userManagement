@@ -1,20 +1,25 @@
-version: "2"
+version: '3'
+
 services:
-#  userManagement:
-#    build: .
-#    ports:
-#      - 3000:3000
-#    environment:
-#      PROFILE: develop
-#    depends_on:
-#      - "postgres"
+  app:
+    build: .
+    depends_on:
+      - postgres
+      # - rabbitmq
+
   postgres:
-    image: postgres
+    # build: ./infrastructure/docker/postgres
+    image: postgres:9-alpine
     restart: always
-    ports:
-      - "5432:5432"
-    environment:
-      - "POSTGRES_USER=dbuser"
-      - "POSTGRES_DB=user"
-      - "POSTGRES_PASSWORD=password"
-  
+    expose:
+      - 5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  # rabbitmq:
+  #   image: rabbitmq:management-alpine
+  #   expose:
+  #     - 5672
+
+volumes:
+  postgres:
