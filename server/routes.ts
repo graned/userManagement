@@ -1,12 +1,15 @@
 import Domain from '../src';
 import { UserControllers } from '../src/presentation/controllers/UserControllers';
+import { UserPresenters } from 'src/presentation/presenters/UserPresenters';
 
 class Routes {
   private readonly domainControllers = new Map();
+  private readonly domainPresenters = new Map();
 
   constructor(private readonly domain: Domain) {
     const domainUseCases = domain.initDomain();
     this.domainControllers = domain.initControllers(domainUseCases);
+    this.domainPresenters = domain.initPresenters();
   }
 
   helloWelt = async (req, res, next) => {
@@ -16,9 +19,14 @@ class Routes {
   // the reason why i added the functions in this way, was in order to have the correct
   // 'this' context. https://blog.johnnyreilly.com/2014/04/typescript-instance-methods.html
   getUserById = async (req, res, next) => {
-    const userControllers: UserControllers = this.domainControllers.get(Domain.Controllers.user);
-    const result = await userControllers.getUserByIdHandler(req);
-    res.send(result);
+    const userControllers: UserControllers = this.domainControllers.get(Domain.CONTROLLERS.user);
+    const userPresenters: UserPresenters = this.domainPresenters.get(Domain.PRESENTERS.user);
+    
+    const { params: requestData } = req;
+    const userInstance = await userControllers.getUserByIdHandler(requestData);
+    const formattedResponse = userPresenters.formatUserData(userInstance);
+    
+    res.send(formattedResponse);
   }
 
   errorHandler(error, req, res, next): void {
