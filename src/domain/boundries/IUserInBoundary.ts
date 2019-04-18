@@ -1,7 +1,6 @@
-import UserEntity from '../entities/UserEntity';
-import { IUserRequestModel } from '../models/IUserRequestModel';
+import { UserRequestModel } from '../models/UserRequestModel';
 
 export interface IUserInBoundary {
-    getUserById(userRequestModel: IUserRequestModel): Promise<UserEntity>;
+    getUserById(userRequestModel: UserRequestModel): Promise<UserRequestModel>;
     // createUser(data: any): Promise<UserEntity>;
 }

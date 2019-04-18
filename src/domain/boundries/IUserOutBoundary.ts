@@ -1,5 +1,5 @@
-import UserEntity from '../entities/UserEntity';
+import { UserResponseModel } from '../models/UserResponseModel';
 
 export interface IUserOutBoundary {
-    formatUserData(user: UserEntity): any;
+    formatUserData(userResponseModel: UserResponseModel): any;
 }
