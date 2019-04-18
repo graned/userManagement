@@ -20,8 +20,7 @@ export class UserControllers implements IControllers {
             id: requestData.id,
         };
         
-        const { id } = request.params;
-        const user = await this.userUseCases.getUserById(id);
+        const user = await this.userUseCases.getUserById(request);
         return user;
     }
 }
