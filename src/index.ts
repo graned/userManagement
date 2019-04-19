@@ -28,9 +28,7 @@ class Domain {
     static readonly PRESENTERS = Presenters;
 
     initDomain(): Map<UseCases, IUserInBoundary> {
-        // declare GatewayManager
-        // const userGatewayManager = new UserGatewayManager();
-        const userGateway = new UserEntityGateway(/* gatewayManager */);
+        const userGateway = new UserEntityGateway();
         const userInteractor = new UserInteractor(userGateway); 
         const userUseCases = new UserUseCases(userInteractor);
         this.useCases.set(UseCases.user, userUseCases);
