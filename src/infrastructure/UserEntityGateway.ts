@@ -1,21 +1,29 @@
 import { IUserGateway } from '../domain/entities/gateways/IUserGateway';
 import UserEntity from '../domain/entities/UserEntity';
+import { Knex } from './db/Knex';
+import * as knex from 'knex';
+import { EntityGateway } from './EntityGateway';
 
-export class UserEntityGateway implements IUserGateway {
-    // constructor(private readonly dbManager: GatewayManager) {
-
-    // }
+const propertyMapper = {
+    id: 'id',
+    first_name: 'firstName',
+    last_name: 'lastName',
+    email: 'email',
+    password: 'password',
+};
+export class UserEntityGateway extends EntityGateway implements IUserGateway {
+    private knexClient: knex;
+    
+    constructor() {
+        super(propertyMapper)
+        this.knexClient = Knex.getClient();
+    }
 
     async fetchUserById(id: number): Promise<UserEntity> {
-        // HERE WE DO SOME DB PROCESS
-        const rawData = {
-            id,
-            firstName: 'John',
-            lastName: 'Rambo',
-            email: 'real_rambo42@yomama.com',
-            password: 'therealrambo123',
-        };
+        const rawData1 = await this.knexClient('users')
+            .select()
+            .where(this.mapToSource({ id }));
 
-        return UserEntity.create(rawData);
+        return UserEntity.create(this.mapToDomain(rawData1.pop()));
     }
 }
