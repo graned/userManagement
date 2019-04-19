@@ -20,10 +20,10 @@ export class UserEntityGateway extends EntityGateway implements IUserGateway {
     }
 
     async fetchUserById(id: number): Promise<UserEntity> {
-        const rawData1 = await this.knexClient('users')
+        const rawData = await this.knexClient('users')
             .select()
             .where(this.mapToSource({ id }));
 
-        return UserEntity.create(this.mapToDomain(rawData1.pop()));
+        return rawData.length ? UserEntity.create(this.mapToDomain(rawData.pop())): null;
     }
 }
