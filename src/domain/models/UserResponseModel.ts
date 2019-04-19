@@ -1,6 +1,6 @@
 import UserEntity from '../entities/UserEntity';
 
-// not to be confused with http requests, this is a class ment to REQUEST the usage of our domain!
+// not to be confused with http requests, this is a class ment to RESPOND the results from domain!
 export class UserResponseModel {
     firstName?: string;
     lastName?: string;
