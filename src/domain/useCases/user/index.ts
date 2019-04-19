@@ -20,9 +20,9 @@ class UserUseCases implements IUserInBoundary {
     this.useCases.set(UseCaseNames.getUserById, getUserByIdUseCase);
   }
 
-  getUserById = async (userRequestModel: UserRequestModel) => {
+  private determineUseCase = (useCaseName: UseCaseNames) => async (userRequestModel: UserRequestModel) => {
     try {      
-      const useCase: IUseCase = this.useCases.get(UseCaseNames.getUserById);
+      const useCase: IUseCase = this.useCases.get(useCaseName);
       const userInstance = await useCase.execute(userRequestModel);
       return new UserResponseModel(userInstance);
     } catch (error) {
@@ -30,6 +30,10 @@ class UserUseCases implements IUserInBoundary {
       throw error;
     }
   }
+
+  
+  // NOTE: This logic can be extracted
+  getUserById = this.determineUseCase(UseCaseNames.getUserById);
 }
 
 export default UserUseCases;
