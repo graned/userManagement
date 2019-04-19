@@ -11,7 +11,7 @@ class GetUserById implements IUseCase {
       const userInstance = await this.userInteractor.getUserById(userRequestModel.id);
       return userInstance;
     } catch (error) {
-      // log error here
+      // TODO: Add logger
       throw error;
     }
   }
