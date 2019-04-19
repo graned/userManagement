@@ -32,6 +32,20 @@ class Routes {
       next(error);
     }
   }
+  
+  createUser = async (req, res, next) => {
+    try {
+      const userControllers: UserControllers = this.domainControllers.get(Domain.CONTROLLERS.user);
+      const userPresenters: UserPresenters = this.domainPresenters.get(Domain.PRESENTERS.user);
+      
+      const { body } = req;
+      const userInstance = await userControllers.createUserHandler(body);
+      const formattedResponse = userPresenters.formatUserData(userInstance);
+      
+      res.send(formattedResponse);
+    } catch (error) {
+      next(error);
+    }
   }
 
   errorHandler(error, req, res, next): void {

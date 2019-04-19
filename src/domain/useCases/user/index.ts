@@ -4,9 +4,11 @@ import GetUserById from './GetUserById';
 import IUseCase from './IUseCase';
 import { UserRequestModel } from '../../models/UserRequestModel';
 import { UserResponseModel } from '../../models/UserResponseModel';
+import CreateUser from './CreateUser';
 
 enum UseCaseNames {
-  getUserById
+  getUserById,
+  createUser,
 };
 
 class UserUseCases implements IUserInBoundary {
@@ -16,17 +18,22 @@ class UserUseCases implements IUserInBoundary {
     private readonly userInteractor: UserInteractor,
   ) {
     // initializes use cases
+    // shall this be moved into the init domain??
     const getUserByIdUseCase = new GetUserById(userInteractor);
+    const createUserUseCase = new CreateUser(userInteractor);
+
     this.useCases.set(UseCaseNames.getUserById, getUserByIdUseCase);
+    this.useCases.set(UseCaseNames.createUser, createUserUseCase);
   }
 
   private determineUseCase = (useCaseName: UseCaseNames) => async (userRequestModel: UserRequestModel) => {
-    try {      
+    try {
       const useCase: IUseCase = this.useCases.get(useCaseName);
       const userInstance = await useCase.execute(userRequestModel);
+      
       return new UserResponseModel(userInstance);
     } catch (error) {
-      // log error here
+      // TODO: add logging
       throw error;
     }
   }
@@ -34,6 +41,7 @@ class UserUseCases implements IUserInBoundary {
   
   // NOTE: This logic can be extracted
   getUserById = this.determineUseCase(UseCaseNames.getUserById);
+  createUser = this.determineUseCase(UseCaseNames.createUser);
 }
 
 export default UserUseCases;

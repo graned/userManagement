@@ -19,6 +19,16 @@ class UserInteractor implements IInteractor<UserEntity>{
 
         return userEntity;
     }
+
+    async createUser(userInstance: UserEntity): Promise<UserEntity> {
+        try {
+            const userEntity: UserEntity = await this.userGateway.createUser(userInstance);
+            return userEntity;
+        } catch (error) {
+            // TODO: add logging
+            throw error;
+        }
+    }
 }
 
 export default UserInteractor;

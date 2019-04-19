@@ -15,7 +15,8 @@ class App {
 
     private registerRoutes(): void {
       this.app.get('/', this.routes.helloWelt);
-      this.app.get('/users/:id', this.routes.getUserById);
+      this.app.get('/user/:id', this.routes.getUserById);
+      this.app.post('/user', this.routes.createUser);
 
       this.app.use(this.routes.errorHandler);
     }
