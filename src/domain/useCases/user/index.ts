@@ -18,7 +18,6 @@ class UserUseCases implements IUserInBoundary {
     private readonly userInteractor: UserInteractor,
   ) {
     // initializes use cases
-    // shall this be moved into the init domain??
     const getUserByIdUseCase = new GetUserById(userInteractor);
     const createUserUseCase = new CreateUser(userInteractor);
 
@@ -38,8 +37,6 @@ class UserUseCases implements IUserInBoundary {
     }
   }
 
-  
-  // NOTE: This logic can be extracted
   getUserById = this.determineUseCase(UseCaseNames.getUserById);
   createUser = this.determineUseCase(UseCaseNames.createUser);
 }
