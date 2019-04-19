@@ -19,14 +19,19 @@ class Routes {
   // the reason why i added the functions in this way, was in order to have the correct
   // 'this' context. https://blog.johnnyreilly.com/2014/04/typescript-instance-methods.html
   getUserById = async (req, res, next) => {
-    const userControllers: UserControllers = this.domainControllers.get(Domain.CONTROLLERS.user);
-    const userPresenters: UserPresenters = this.domainPresenters.get(Domain.PRESENTERS.user);
-    
-    const { params: requestData } = req;
-    const userInstance = await userControllers.getUserByIdHandler(requestData);
-    const formattedResponse = userPresenters.formatUserData(userInstance);
-    
-    res.send(formattedResponse);
+    try {
+      const userControllers: UserControllers = this.domainControllers.get(Domain.CONTROLLERS.user);
+      const userPresenters: UserPresenters = this.domainPresenters.get(Domain.PRESENTERS.user);
+      
+      const { params: requestData } = req;
+      const userInstance = await userControllers.getUserByIdHandler(requestData);
+      const formattedResponse = userPresenters.formatUserData(userInstance);
+      
+      res.send(formattedResponse);
+    } catch (error) {
+      next(error);
+    }
+  }
   }
 
   errorHandler(error, req, res, next): void {
