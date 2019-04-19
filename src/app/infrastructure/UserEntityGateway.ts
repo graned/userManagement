@@ -11,6 +11,7 @@ const propertyMapper = {
     email: 'email',
     password: 'password',
 };
+
 export class UserEntityGateway extends EntityGateway implements IUserGateway {
     private knexClient: knex;
     

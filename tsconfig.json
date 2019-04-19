@@ -9,7 +9,7 @@
       "baseUrl": "./"
   },
   "include": [
-      "src/**/*.ts", "server/routes.ts", "server/app.ts", "server/index.ts"
+      "src/**/*.ts", "src/server/routes.ts", "src/server/app.ts", "src/server/index.ts", "src/logger.ts"
   ],
   "exclude": [
       "node_modules"

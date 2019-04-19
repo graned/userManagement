@@ -1,16 +1,19 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as config from 'config';
 import Routes from './routes';
 
 class App {
     app: express.Application;
-    PORT: number = 3000;
-    HOST: string = 'localhost';
+    PORT: number;
+    HOST: string;
     routes: Routes;
 
     constructor(routes: Routes) {
         this.app = express();
         this.routes = routes;
+        this.HOST = config.get('host') || 'localhost';
+        this.PORT = config.get('port') || 3000;
     }
 
     private registerRoutes(): void {

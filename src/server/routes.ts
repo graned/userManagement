@@ -1,6 +1,6 @@
-import Domain from '../src';
-import { UserControllers } from '../src/presentation/controllers/UserControllers';
-import { UserPresenters } from 'src/presentation/presenters/UserPresenters';
+import Domain from '../app';
+import { UserControllers } from '../app/presentation/controllers/UserControllers';
+import { UserPresenters } from 'src/app/presentation/presenters/UserPresenters';
 
 class Routes {
   private readonly domainControllers = new Map();
