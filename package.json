@@ -19,9 +19,8 @@
   "homepage": "https://github.com/graned/userManagement#readme",
   "dependencies": {
     "@types/express": "^4.16.1",
+    "@types/knex": "^0.16.1",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "knex": "^0.16.3",
     "pg": "^7.9.0"
   },
   "devDependencies": {
