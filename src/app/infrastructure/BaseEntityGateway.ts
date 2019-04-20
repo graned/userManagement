@@ -1,4 +1,4 @@
-export abstract class EntityGateway {
+abstract class BaseEntityGateway {
     private propertyMapper: any;
 
     constructor(propertyMapper) {
@@ -29,3 +29,5 @@ export abstract class EntityGateway {
         return mappedData;
     };
 }
+
+export default BaseEntityGateway;

@@ -1,9 +1,9 @@
 import IInteractor from './IInteractor';
 import UserEntity from '../entities/UserEntity';
-import { IUserGateway } from '../entities/gateways/IUserGateway';
+import IUserEntityGateway from '../entities/gateways/IUserEntityGateway';
 
 class UserInteractor implements IInteractor<UserEntity>{
-    constructor(private readonly userGateway: IUserGateway) {
+    constructor(private readonly userGateway: IUserEntityGateway) {
     }
 
     createInstance(data: any): UserEntity {
