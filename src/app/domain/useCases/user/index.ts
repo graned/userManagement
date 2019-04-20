@@ -1,9 +1,12 @@
-import UserInteractor from '../../interactors/UserInteractor';
-import { IUserInBoundary } from '../../boundries/IUserInBoundary';
-import GetUserById from './GetUserById';
 import IUseCase from './IUseCase';
-import { UserRequestModel } from '../../models/UserRequestModel';
-import { UserResponseModel } from '../../models/UserResponseModel';
+
+import UserInteractor from '../../interactors/UserInteractor';
+import IUserInBoundary from '../../boundries/IUserInBoundary';
+
+import UserRequestModel from '../../models/UserRequestModel';
+import UserResponseModel from '../../models/UserResponseModel';
+
+import GetUserById from './GetUserById';
 import CreateUser from './CreateUser';
 
 enum UseCaseNames {

@@ -1,5 +1,7 @@
-import { UserResponseModel } from '../models/UserResponseModel';
+import UserResponseModel from '../models/UserResponseModel';
 
-export interface IUserOutBoundary {
+interface IUserOutBoundary {
     formatUserData(userResponseModel: UserResponseModel): any;
 }
+
+export default IUserOutBoundary;

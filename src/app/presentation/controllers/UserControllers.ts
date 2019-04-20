@@ -1,11 +1,11 @@
-import { IUserInBoundary } from '../../domain/boundries/IUserInBoundary';
-import { UserRequestModel } from '../../domain/models/UserRequestModel';
+import IUserInBoundary from '../../domain/boundries/IUserInBoundary';
+import UserRequestModel from '../../domain/models/UserRequestModel';
 
 /*
 This bad boy is in charge of taking the requests from the server.
 This files have a dependency to a request model and to a boundry interface
 */ 
-export class UserControllers {
+class UserControllers {
     constructor(
         private readonly userUseCases: IUserInBoundary,
     ) {}
@@ -26,3 +26,5 @@ export class UserControllers {
         return newUser;
     }
 }
+
+export default UserControllers;

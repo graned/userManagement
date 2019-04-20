@@ -1,6 +1,6 @@
 import UserInteractor from '../../interactors/UserInteractor';
 import IUseCase from './IUseCase';
-import { UserRequestModel } from '../../models/UserRequestModel';
+import UserRequestModel from '../../models/UserRequestModel';
 
 class CreateUser implements IUseCase {
   constructor(private readonly userInteractor: UserInteractor) {

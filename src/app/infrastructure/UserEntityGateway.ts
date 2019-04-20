@@ -1,8 +1,9 @@
-import { IUserGateway } from '../domain/entities/gateways/IUserGateway';
+import IUserEntityGateway from '../domain/entities/gateways/IUserEntityGateway';
+import BaseEntityGateway from './BaseEntityGateway';
 import UserEntity from '../domain/entities/UserEntity';
+
 import { Knex } from './db/Knex';
 import * as knex from 'knex';
-import { EntityGateway } from './EntityGateway';
 
 const propertyMapper = {
     id: 'id',
@@ -12,7 +13,7 @@ const propertyMapper = {
     password: 'password',
 };
 
-export class UserEntityGateway extends EntityGateway implements IUserGateway {
+class UserEntityGateway extends BaseEntityGateway implements IUserEntityGateway {
     private knexClient: knex;
     
     constructor() {
@@ -41,3 +42,5 @@ export class UserEntityGateway extends EntityGateway implements IUserGateway {
         return UserEntity.create(this.mapToDomain(newUser.pop()))
     }
 }
+
+export default UserEntityGateway;

@@ -1,18 +1,21 @@
 import Domain from '../app';
 import { factory } from  '../logger';
-import { UserControllers } from '../app/presentation/controllers/UserControllers';
-import { UserPresenters } from 'src/app/presentation/presenters/UserPresenters';
+import UserControllers from '../app/presentation/controllers/UserControllers';
+import UserPresenters from 'src/app/presentation/presenters/UserPresenters';
 
 const logger = factory.getLogger('app.routes');
 
 class Routes {
-  private readonly domainControllers = new Map();
-  private readonly domainPresenters = new Map();
+  private readonly userControllers: UserControllers;
+  private readonly userPresenters: UserPresenters;
 
   constructor(private readonly domain: Domain) {
     const domainUseCases = domain.initDomain();
-    this.domainControllers = domain.initControllers(domainUseCases);
-    this.domainPresenters = domain.initPresenters();
+    const controllers = domain.initControllers(domainUseCases);
+    const presenters = domain.initPresenters();
+
+    this.userControllers = controllers.get(Domain.CONTROLLERS.user);
+    this.userPresenters = presenters.get(Domain.PRESENTERS.user);
   }
 
   helloWelt = async (req, res, next) => {
@@ -25,14 +28,11 @@ class Routes {
     logger.info('GET /user/:id');
 
     try {
-      const userControllers: UserControllers = this.domainControllers.get(Domain.CONTROLLERS.user);
-      const userPresenters: UserPresenters = this.domainPresenters.get(Domain.PRESENTERS.user);
-      
       const { params: requestData } = req;
       logger.info(`Request.params: ${JSON.stringify(requestData)}`);
 
-      const userInstance = await userControllers.getUserByIdHandler(requestData);
-      const formattedResponse = userPresenters.formatUserData(userInstance);
+      const userInstance = await this.userControllers.getUserByIdHandler(requestData);
+      const formattedResponse = this.userPresenters.formatUserData(userInstance);
       
       res.send(formattedResponse);
     } catch (error) {
@@ -44,14 +44,11 @@ class Routes {
     logger.info('POST /user');
 
     try {
-      const userControllers: UserControllers = this.domainControllers.get(Domain.CONTROLLERS.user);
-      const userPresenters: UserPresenters = this.domainPresenters.get(Domain.PRESENTERS.user);
-      
       const { body } = req;
       logger.info(`Request.body: ${JSON.stringify(body)}`);
 
-      const userInstance = await userControllers.createUserHandler(body);
-      const formattedResponse = userPresenters.formatUserData(userInstance);
+      const userInstance = await this.userControllers.createUserHandler(body);
+      const formattedResponse = this.userPresenters.formatUserData(userInstance);
       
       res.send(formattedResponse);
     } catch (error) {

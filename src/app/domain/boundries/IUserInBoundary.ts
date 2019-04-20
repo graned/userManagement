@@ -1,6 +1,8 @@
-import { UserRequestModel } from '../models/UserRequestModel';
+import UserRequestModel from '../models/UserRequestModel';
 
-export interface IUserInBoundary {
+interface IUserInBoundary {
     getUserById(userRequestModel: UserRequestModel): Promise<UserRequestModel>;
     createUser(userRequestModel: UserRequestModel): Promise<UserRequestModel>;
 }
+
+export default IUserInBoundary;

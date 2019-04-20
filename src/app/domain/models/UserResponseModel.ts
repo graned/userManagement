@@ -1,7 +1,7 @@
 import UserEntity from '../entities/UserEntity';
 
 // not to be confused with http requests, this is a class ment to RESPOND the results from domain!
-export class UserResponseModel {
+class UserResponseModel {
     id?: number;
     firstName?: string;
     lastName?: string;
@@ -16,3 +16,5 @@ export class UserResponseModel {
         this.password = userEntity.password || null;
     }
 }
+
+export default UserResponseModel;

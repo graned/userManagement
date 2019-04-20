@@ -1,10 +1,10 @@
 import UserUseCases from './domain/useCases/user';
 import UserInteractor from './domain/interactors/UserInteractor';
 
-import { UserEntityGateway } from './infrastructure/UserEntityGateway';
-import { UserControllers } from './presentation/controllers/userControllers';
-import { IUserInBoundary } from './domain/boundries/IUserInBoundary';
-import { UserPresenters } from './presentation/presenters/UserPresenters';
+import UserEntityGateway from './infrastructure/UserEntityGateway';
+import UserControllers from './presentation/controllers/userControllers';
+import IUserInBoundary from './domain/boundries/IUserInBoundary';
+import UserPresenters from './presentation/presenters/UserPresenters';
 
 enum UseCases {
     user,

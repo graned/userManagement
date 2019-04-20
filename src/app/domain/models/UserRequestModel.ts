@@ -1,5 +1,5 @@
 // not to be confused with http requests, this is a class ment to REQUEST the usage of our domain!
-export class UserRequestModel {
+class UserRequestModel {
     id?: number;
     firstName?: string;
     lastName?: string;
@@ -14,3 +14,5 @@ export class UserRequestModel {
         this.password = requestData.password || null;
     }
 }
+
+export default UserRequestModel;
