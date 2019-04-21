@@ -11,7 +11,7 @@ class GetUserById implements IUseCase {
     ) {}
 
   execute = async (userRequestModel: UserRequestModel) => {
-    try {
+    try {      
       const userInstance = await this.userInteractor.getUserById(userRequestModel.id);
       const responseModel = new UserResponseModel(userInstance);
       

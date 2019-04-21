@@ -7,7 +7,7 @@ class UserRequestModel {
     password?: string;
 
     constructor(requestData: any) {
-        this.id = requestData.id? parseInt(requestData.id, 10) : null;
+        this.id = parseInt(requestData.id, 10) || null;
         this.firstName = requestData.firstName || null;
         this.lastName = requestData.lastName || null;
         this.email = requestData.email || null;

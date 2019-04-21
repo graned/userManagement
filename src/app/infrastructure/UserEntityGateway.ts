@@ -22,6 +22,8 @@ class UserEntityGateway extends BaseEntityGateway implements IUserEntityGateway 
     }
 
     async fetchUserById(id: number): Promise<UserEntity> {
+        if (id == null) return null;
+
         const rawData = await this.knexClient('users')
             .select()
             .where(this.mapToSource({ id }));
