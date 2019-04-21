@@ -17,8 +17,6 @@ class CreateUser implements IUseCase {
       
       const responseModel = new UserResponseModel(createdUser);
       return this.userOutBoundary.formatUserData(responseModel);
-      
-      return createdUser;
     } catch (error) {
       console.log('> error during create user', error);
       throw error;
