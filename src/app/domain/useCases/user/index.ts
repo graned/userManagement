@@ -5,6 +5,7 @@ import IUserInBoundary from '../../boundries/IUserInBoundary';
 
 import UserRequestModel from '../../models/UserRequestModel';
 import UserResponseModel from '../../models/UserResponseModel';
+import IUserOutBoundary from '../../boundries/IUserOutBoundary';
 
 import GetUserById from './GetUserById';
 import CreateUser from './CreateUser';
@@ -18,11 +19,12 @@ class UserUseCases implements IUserInBoundary {
   private useCases: Map<UseCaseNames, IUseCase> = new Map();
   
   constructor(
+    private readonly userOutBoundary: IUserOutBoundary,
     private readonly userInteractor: UserInteractor,
   ) {
     // initializes use cases
-    const getUserByIdUseCase = new GetUserById(userInteractor);
-    const createUserUseCase = new CreateUser(userInteractor);
+    const getUserByIdUseCase = new GetUserById(this.userInteractor);
+    const createUserUseCase = new CreateUser(this.userInteractor);
 
     this.useCases.set(UseCaseNames.getUserById, getUserByIdUseCase);
     this.useCases.set(UseCaseNames.createUser, createUserUseCase);
@@ -33,7 +35,8 @@ class UserUseCases implements IUserInBoundary {
       const useCase: IUseCase = this.useCases.get(useCaseName);
       const userInstance = await useCase.execute(userRequestModel);
       
-      return new UserResponseModel(userInstance);
+      const responseModel = new UserResponseModel(userInstance);
+      return this.userOutBoundary.formatUserData(responseModel);
     } catch (error) {
       // TODO: add logging
       throw error;
