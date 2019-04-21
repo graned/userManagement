@@ -7,15 +7,9 @@ const logger = factory.getLogger('app.routes');
 
 class Routes {
   private readonly userControllers: UserControllers;
-  private readonly userPresenters: UserPresenters;
 
   constructor(private readonly domain: Domain) {
-    const domainUseCases = domain.initDomain();
-    const controllers = domain.initControllers(domainUseCases);
-    const presenters = domain.initPresenters();
-
-    this.userControllers = controllers.get(Domain.CONTROLLERS.user);
-    this.userPresenters = presenters.get(Domain.PRESENTERS.user);
+    this.userControllers = this.domain.getUserControllers();
   }
 
   helloWelt = async (req, res, next) => {
@@ -31,10 +25,9 @@ class Routes {
       const { params: requestData } = req;
       logger.info(`Request.params: ${JSON.stringify(requestData)}`);
 
-      const userInstance = await this.userControllers.getUserByIdHandler(requestData);
-      const formattedResponse = this.userPresenters.formatUserData(userInstance);
-      
-      res.send(formattedResponse);
+      const user = await this.userControllers.getUserByIdHandler(requestData);
+    
+      res.send(user);
     } catch (error) {
       next(error);
     }
@@ -47,10 +40,9 @@ class Routes {
       const { body } = req;
       logger.info(`Request.body: ${JSON.stringify(body)}`);
 
-      const userInstance = await this.userControllers.createUserHandler(body);
-      const formattedResponse = this.userPresenters.formatUserData(userInstance);
+      const newUser = await this.userControllers.createUserHandler(body);
       
-      res.send(formattedResponse);
+      res.send(newUser);
     } catch (error) {
       next(error);
     }
